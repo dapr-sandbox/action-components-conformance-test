@@ -23,9 +23,8 @@ inputs:
     options:
       - state
       - pubsub
-      - inputbinding
-      - outputbinding
-      - middleware.http
+      - binding.input
+      - binding.output
       - configuration
       - secret
       - lock
