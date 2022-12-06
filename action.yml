@@ -1,0 +1,55 @@
+name: "Run Dapr Conformance Tests"
+description: "Run Dapr Conformance Tests against a pluggable component"
+branding:
+  icon: "arrow-right-circle"
+  color: "gray-dark"
+inputs:
+  socket:
+    description: "The socket path."
+    required: true
+  metadata:
+    description: "The component metadata."
+    required: false
+  operations:
+    description: "The tested operations."
+    required: false
+  test_config:
+    description: "The additional test config."
+    required: false
+  type:
+    type: choice
+    description: "The component type."
+    required: true
+    options:
+      - state
+      - pubsub
+      - inputbinding
+      - outputbinding
+      - middleware.http
+      - configuration
+      - secret
+      - lock
+      - nameresolution
+runs:
+  using: "composite"
+  steps:
+    # download conformance github
+    - name: setup go
+      uses: actions/setup-go@v3
+      with:
+        go-version: ">=1.19.0"
+    - name: Download conformance test
+      uses: actions/checkout@v3
+      with:
+        repository: mcandeia/components-contrib
+        ref: "feat/conformance-module"
+    - name: Run Tests
+      shell: bash
+      env:
+        DAPR_CONFORMANCE_COMPONENT_METADATA: ${{ inputs.metadata }}
+        DAPR_CONFORMANCE_COMPONENT_OPERATIONS: ${{ inputs.operations }}
+        DAPR_CONFORMANCE_COMPONENT_SOCKET: ${{ inputs.socket }}
+        DAPR_CONFORMANCE_COMPONENT_CONFIG: ${{ inputs.test_config }}
+      run: |
+        cd tests/conformance
+        go test -v -tags=conftests -count=1 . -run="TestPluggableConformance/${{ inputs.type }}"
