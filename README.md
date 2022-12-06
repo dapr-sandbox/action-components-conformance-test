@@ -4,7 +4,7 @@ A github action for running conformance test against a pluggable component.
 
 ```yaml
 - name: Conformance Tests
-  uses: mcandeia/action-dapr-conformance-tests@v1
+  uses: dapr-sandbox/action-components-conformance-test@v1
   with:
     socket: /tmp/socket.sock
     metadata: | ## component-specific init metadata
@@ -32,7 +32,7 @@ jobs:
         run: docker run -d -it --env DAPR_COMPONENT_SOCKET_PATH=/tmp/socket.sock -v /tmp:/tmp tmacam/dapr-memstore-java:latest
 
       - name: Conformance Tests
-        uses: mcandeia/action-dapr-conformance-tests@v1
+        uses: dapr-sandbox/action-components-conformance-test@v1
         with:
           socket: /tmp/socket.sock
           metadata: |
