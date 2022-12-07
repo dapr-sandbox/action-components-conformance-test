@@ -42,6 +42,8 @@ func inputOrDefault(name, defaultValue string) string {
 func main() {
 	cmd := exec.Command("go", "test", "-run", "TestPluggableConformance/"+os.Getenv("INPUT_TYPE"), "-v")
 
+	fmt.Println("CURRENT ENVIRONMENT")
+	fmt.Println(os.Environ())
 	stdout, err := cmd.StdoutPipe()
 	cmd.Env = os.Environ()
 	cmd.Stderr = cmd.Stdout
