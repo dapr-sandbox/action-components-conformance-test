@@ -7,7 +7,6 @@ require (
 	github.com/dapr/dapr v1.9.5
 	github.com/dapr/kit v0.0.3
 	github.com/mitchellh/mapstructure v1.5.1-0.20220423185008-bf980b35cac4
-	github.com/sethvargo/go-githubactions v1.1.0
 	github.com/stretchr/testify v1.8.1
 	gopkg.in/yaml.v3 v3.0.1
 )
@@ -31,7 +30,6 @@ require (
 	github.com/modern-go/reflect2 v1.0.2 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
-	github.com/sethvargo/go-envconfig v0.8.0 // indirect
 	github.com/sirupsen/logrus v1.9.0 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
 	golang.org/x/net v0.0.0-20220927171203-f486391704dc // indirect

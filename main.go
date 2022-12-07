@@ -14,37 +14,20 @@ limitations under the License.
 package main
 
 import (
+	"flag"
 	"fmt"
 	"os"
 	"os/exec"
-
-	"github.com/sethvargo/go-githubactions"
 )
-
-const (
-	socketInput     = "socket"
-	metadataInput   = "metadata"
-	operationsInput = "operations"
-	testConfigInput = "test_config"
-	typeInput       = "type"
-)
-
-// inputOrDefault gets the input value or use default if empty.
-func inputOrDefault(name, defaultValue string) string {
-	input := githubactions.GetInput(name)
-	if len(input) == 0 {
-		return defaultValue
-	}
-
-	return input
-}
 
 func main() {
+	dir := flag.String("dir", ".", "directory")
+	flag.Parse()
+
 	cmd := exec.Command("go", "test", "-run", "TestPluggableConformance/"+os.Getenv("INPUT_TYPE"), "-v")
 
-	fmt.Println("CURRENT ENVIRONMENT")
-	fmt.Println(os.Environ())
 	stdout, err := cmd.StdoutPipe()
+	cmd.Dir = *dir
 	cmd.Env = os.Environ()
 	cmd.Stderr = cmd.Stdout
 
@@ -61,5 +44,9 @@ func main() {
 		if err != nil {
 			break
 		}
+	}
+
+	if err := cmd.Wait(); err != nil {
+		panic(err)
 	}
 }

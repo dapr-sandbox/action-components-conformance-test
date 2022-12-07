@@ -32,4 +32,4 @@ runs:
   using: "docker"
   image: "Dockerfile"
   args:
-    - "--workdir /conformance"
+    - "-dir=/conformance"
