@@ -4,8 +4,9 @@ A github action for running conformance test against a pluggable component.
 
 ```yaml
 - name: Conformance Tests
-  uses: dapr-sandbox/action-components-conformance-test@v0
+  uses: dapr-sandbox/action-components-conformance-test@v0.1.0
   with:
+    type: state
     socket: /tmp/socket.sock
     metadata: | ## component-specific init metadata
       timeout: 10s
@@ -32,8 +33,9 @@ jobs:
         run: docker run -d -it --env DAPR_COMPONENT_SOCKET_PATH=/tmp/socket.sock -v /tmp:/tmp tmacam/dapr-memstore-java:latest
 
       - name: Conformance Tests
-        uses: dapr-sandbox/action-components-conformance-test@v0
+        uses: dapr-sandbox/action-components-conformance-test@v0.1.0
         with:
+          type: state
           socket: /tmp/socket.sock
           metadata: |
             timeout: 10s

@@ -29,7 +29,25 @@ inputs:
       - lock
       - nameresolution
 runs:
-  using: "docker"
-  image: "Dockerfile"
-  args:
-    - "-dir=/conformance"
+  using: "composite"
+  steps:
+    # download conformance github
+    - name: setup go
+      uses: actions/setup-go@v3
+      with:
+        go-version: ">=1.19.0"
+    - name: Download conformance test
+      uses: actions/checkout@v3
+      with:
+        repository: dapr-sandbox/action-components-conformance-test
+        ref: "genesis"
+    - name: Run Tests
+      shell: bash
+      env:
+        INPUT_METADATA: ${{ inputs.metadata }}
+        INPUT_OPERATIONS: ${{ inputs.operations }}
+        INPUT_SOCKET: ${{ inputs.socket }}
+        INPUT_CONFIG: ${{ inputs.test_config }}
+        INPUT_TYPE: ${{ inputs.type }}
+      run: |
+        go run .
