@@ -8,6 +8,7 @@ ENV GO111MODULE=on \
 
 WORKDIR /conformance
 COPY go.mod .
+COPY go.sum .
 COPY conformance_test.go .
 COPY main.go .
 

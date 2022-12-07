@@ -61,5 +61,3 @@ func main() {
 		}
 	}
 }
-
-// docker run --env INPUT_TYPE=state --env INPUT_SOCKET=/tmp/dapr-components-sockets/redis-pluggable.sock --env INPUT_METADATA="$(cat /tmp/redismetadata.yaml)" -v /tmp/dapr-components-sockets:/tmp/dapr-components-sockets conformance-tester

@@ -23,32 +23,11 @@ inputs:
     options:
       - state
       - pubsub
-      - binding.input
-      - binding.output
+      - bindings
       - configuration
       - secret
       - lock
       - nameresolution
 runs:
-  using: "composite"
-  steps:
-    # download conformance github
-    - name: setup go
-      uses: actions/setup-go@v3
-      with:
-        go-version: ">=1.19.0"
-    - name: Download conformance test
-      uses: actions/checkout@v3
-      with:
-        repository: mcandeia/components-contrib
-        ref: "feat/conformance-module"
-    - name: Run Tests
-      shell: bash
-      env:
-        DAPR_CONFORMANCE_COMPONENT_METADATA: ${{ inputs.metadata }}
-        DAPR_CONFORMANCE_COMPONENT_OPERATIONS: ${{ inputs.operations }}
-        DAPR_CONFORMANCE_COMPONENT_SOCKET: ${{ inputs.socket }}
-        DAPR_CONFORMANCE_COMPONENT_CONFIG: ${{ inputs.test_config }}
-      run: |
-        cd tests/conformance
-        go test -v -tags=conftests -count=1 . -run="TestPluggableConformance/${{ inputs.type }}"
+  using: "docker"
+  image: "Dockerfile"
