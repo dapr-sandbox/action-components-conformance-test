@@ -33,7 +33,7 @@ run:
   # skip-files:
   #  - ".*\\.my\\.go$"
   #  - lib/bad.go
-  
+
 # output configuration options
 output:
   # colored-line-number|line-number|json|tab|checkstyle, default is "colored-line-number"
@@ -44,7 +44,6 @@ output:
 
   # print linter name in the end of issue text, default is true
   print-linter-name: true
-
 
 # all available settings of specific linters
 linters-settings:
@@ -199,7 +198,7 @@ linters-settings:
       - HACK # marks hack-arounds that should be removed before merging
   godot:
     exclude:
-      - 'nosec'
+      - "nosec"
     capital: false
     scope: all
   dogsled:
@@ -207,7 +206,7 @@ linters-settings:
     max-blank-identifiers: 2
 
   whitespace:
-    multi-if: false   # Enforces newlines (or comments) after every multi-line if statement
+    multi-if: false # Enforces newlines (or comments) after every multi-line if statement
     multi-func: false # Enforces newlines (or comments) after every multi-line function signature
 
   wsl:
