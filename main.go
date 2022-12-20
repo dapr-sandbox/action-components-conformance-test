@@ -15,7 +15,7 @@ package main
 
 import (
 	"flag"
-	"fmt"
+	"io"
 	"os"
 	"os/exec"
 )
@@ -37,13 +37,10 @@ func main() {
 	if err = cmd.Start(); err != nil {
 		panic(err)
 	}
-	for {
-		tmp := make([]byte, 1024)
-		_, err := stdout.Read(tmp)
-		fmt.Println(string(tmp)) //nolint:forbidigo
-		if err != nil {
-			break
-		}
+
+	_, err = io.Copy(os.Stdout, stdout)
+	if err != nil {
+		panic(err)
 	}
 
 	if err := cmd.Wait(); err != nil {

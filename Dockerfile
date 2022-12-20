@@ -7,13 +7,8 @@ ENV GO111MODULE=on \
     GOARCH=amd64
 
 WORKDIR /conformance
-COPY go.mod .
-COPY go.sum .
-COPY conformance_test.go .
-COPY main.go .
+COPY . .
 
-RUN go mod download
-
-RUN go build -o /conformance/run
+RUN go mod download && go build -o /conformance/run
 
 ENTRYPOINT ["/conformance/run"]
