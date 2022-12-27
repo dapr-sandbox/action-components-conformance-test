@@ -39,6 +39,8 @@ jobs:
           socket: /tmp/socket.sock
           metadata: |
             timeout: 10s
+            concurrency: 1
           operations: |
             - get
+            - set
 ```
