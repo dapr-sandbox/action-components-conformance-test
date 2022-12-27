@@ -2,9 +2,7 @@
 FROM golang:1.19
 
 ENV GO111MODULE=on \
-    CGO_ENABLED=0 \
-    GOOS=linux \
-    GOARCH=amd64
+    CGO_ENABLED=0
 
 WORKDIR /conformance
 COPY . .
