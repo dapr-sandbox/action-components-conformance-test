@@ -1,0 +1,14 @@
+# ignore .git and .cache folders
+.github
+.gitignore
+.cache
+
+# ignore all markdown files (md) beside all README*.md other than README-secret.md
+*.md
+
+# License
+
+LICENSE
+
+# github actions related files
+action.yml

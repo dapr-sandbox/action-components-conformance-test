@@ -1,0 +1,53 @@
+name: "Run Dapr Conformance Tests"
+description: "Run Dapr Conformance Tests against a pluggable component"
+branding:
+  icon: "arrow-right-circle"
+  color: "gray-dark"
+inputs:
+  socket:
+    description: "The socket path."
+    required: true
+  metadata:
+    description: "The component metadata."
+    required: false
+  operations:
+    description: "The tested operations."
+    required: false
+  test_config:
+    description: "The additional test config."
+    required: false
+  type:
+    type: choice
+    description: "The component type."
+    required: true
+    options:
+      - state
+      - pubsub
+      - bindings
+      - configuration
+      - secret
+      - lock
+      - nameresolution
+runs:
+  using: "composite"
+  steps:
+    # download conformance github
+    - name: setup go
+      uses: actions/setup-go@v3
+      with:
+        go-version: "1.19.x"
+    - name: Download conformance test
+      uses: actions/checkout@v3
+      with:
+        repository: dapr-sandbox/action-components-conformance-test
+        ref: "genesis"
+    - name: Run Tests
+      shell: bash
+      env:
+        INPUT_METADATA: ${{ inputs.metadata }}
+        INPUT_OPERATIONS: ${{ inputs.operations }}
+        INPUT_SOCKET: ${{ inputs.socket }}
+        INPUT_CONFIG: ${{ inputs.test_config }}
+        INPUT_TYPE: ${{ inputs.type }}
+      run: |
+        go run .
